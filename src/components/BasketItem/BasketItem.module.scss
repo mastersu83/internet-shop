@@ -1,0 +1,52 @@
+.basket {
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #aec2ea;
+  }
+
+  &__itemImg {
+    height: 100px;
+  }
+
+  &__itemTitle {
+    width: 220px;
+    max-height: 43px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__countBox {
+    border: 1px solid #aec2ea;
+    border-radius: 35px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 25px;
+  }
+
+  &__countButtons {
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  &__count {
+    font-size: 16px;
+  }
+
+  &__itemPrice {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &__btn {
+  }
+  &__itemDelete {
+    cursor: pointer;
+  }
+}

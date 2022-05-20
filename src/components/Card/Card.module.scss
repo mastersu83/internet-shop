@@ -1,0 +1,93 @@
+.card {
+  &__item {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+  }
+
+  &__img {
+    width: 214px;
+  }
+
+  &__title {
+    margin-top: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  &__priceBlock {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+  }
+
+  &__priceItem {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__price {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+    color: #2967ff;
+    margin-bottom: 10px;
+  }
+  &__activePrice {
+    color: #ffffff;
+    background-color: #2967ff;
+  }
+
+  &__btn {
+    color: #2967ff;
+    border: 1px solid #2967ff;
+    box-sizing: border-box;
+    border-radius: 26px;
+    padding: 10px 30px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      background-color: #2967ff;
+      color: #ffffff;
+      transition: 0.3s;
+    }
+    &:active {
+      background-color: #102c70;
+    }
+  }
+}
+
+.sliderContainer {
+  position: relative;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: transparent;
+  overflow: hidden;
+  .slider {
+    display: flex;
+  }
+
+  .left {
+    top: 98px;
+    left: 0;
+  }
+  .right {
+    top: 98px;
+    right: 0;
+  }
+  .arrow {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: rgba(45, 45, 47, 0.54);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 50%;
+  }
+}

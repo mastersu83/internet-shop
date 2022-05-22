@@ -1,7 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./Card.module.scss";
+import { ProductType } from "../../types/productType";
 
-const Card = () => {
+const Card: FC<ProductType> = ({ description, images, prices }) => {
   return (
     <>
       <div className={classes.card__item}>
@@ -18,7 +19,7 @@ const Card = () => {
             className={classes.slider}
           >
             <img
-              src="https://lider-krovlia.ru/local/templates/aspro-stroy/images/noimage_detail.png"
+              src={`https://test2.sionic.ru${images[0].image_url}`}
               alt=""
               className={classes.card__img}
             />
@@ -27,15 +28,12 @@ const Card = () => {
             <span>{">"}</span>
           </div>
         </div>
-        <span className={classes.card__title}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-          aliquid, aspernatur commodi dolorum excepturi explicabo libero magnam
-          molestiae mollitia neque nesciunt nihil porro quam quod rem sapiente
-          tenetur unde, vel.
-        </span>
+        <span className={classes.card__title}>{description}</span>
         <div className={classes.card__priceBlock}>
           <div className={classes.card__priceItem}>
-            <span className={`${classes.card__price} `}>от 350₽</span>
+            <span className={`${classes.card__price} `}>
+              от {prices[0].price}₽
+            </span>
           </div>
         </div>
 

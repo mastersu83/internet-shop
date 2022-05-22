@@ -5,9 +5,7 @@ import classes from "../Cards/Cards.module.scss";
 const ProductVarPopup = () => {
   return (
     <>
-      <div className={classes.card__items}>
-        <Card />
-      </div>
+      <div className={classes.card__items}>{/*<Card />*/}</div>
     </>
   );
 };

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./Category.module.scss";
 import { useGetAllCategoriesQuery } from "../../api/categoryApi";
 import { CategoryType } from "../../types/categoryType";
 import { useAppDispatch, useAppSelector } from "../../hooks/appHooks";
 import { setCategoryId } from "../../redux/reducers/productsSlice";
 import { getAllProducts } from "../../api/productsApi";
+import CategoryLoader from "./CategoryLoader";
 
 const Category = () => {
   const dispatch = useAppDispatch();
@@ -24,18 +25,21 @@ const Category = () => {
         <span className={classes.category__setup}>Настройки</span>
       </span>
       <div className={classes.category__tabs}>
-        {categoriesIsSuccess &&
-          categories.map((cat: CategoryType) => (
-            <button
-              onClick={() => handleCategory(cat.id)}
-              key={cat.id}
-              className={`${classes.category__tab} ${
-                categoryId === cat.id ? classes.active : ""
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
+        {categoriesIsSuccess
+          ? categories.map((cat: CategoryType) => (
+              <button
+                onClick={() => handleCategory(cat.id)}
+                key={cat.id}
+                className={`${classes.category__tab} ${
+                  categoryId === cat.id ? classes.active : ""
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))
+          : Array(10)
+              .fill(0)
+              .map((_, index) => <CategoryLoader key={index} />)}
       </div>
     </div>
   );

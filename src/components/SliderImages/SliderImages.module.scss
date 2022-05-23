@@ -1,0 +1,36 @@
+.sliderContainer {
+  position: relative;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: transparent;
+  overflow: hidden;
+  .slider {
+    display: flex;
+    width: 217px;
+    transition: 0.3s;
+    &__img {
+      width: 217px;
+    }
+  }
+
+  .left {
+    top: 98px;
+    left: 0;
+  }
+  .right {
+    top: 98px;
+    right: 0;
+  }
+  .arrow {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: rgba(45, 45, 47, 0.54);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 50%;
+  }
+}

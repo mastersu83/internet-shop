@@ -1,0 +1,29 @@
+.priceBlock {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 5px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 130%;
+  color: #2967ff;
+  padding: 5px 10px;
+  border: 1px solid #2967ff;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.priceItem {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #2967ff;
+  color: #ffffff;
+  transition: 0.3s;
+}

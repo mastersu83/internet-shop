@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./OrdersHistoryItem.module.scss";
-import OrderPopup from "../OrderPopup/OrderPopup";
 
 const OrdersHistoryItem = () => {
   return (
@@ -43,7 +42,6 @@ const OrdersHistoryItem = () => {
             <p>Адрес доставки ул.</p> <span> Коммунистич...д.1, стр.1</span>
           </div>
         </div>
-        <OrderPopup />
       </div>
     </>
   );

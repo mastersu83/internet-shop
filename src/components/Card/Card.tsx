@@ -1,33 +1,22 @@
 import React, { FC } from "react";
 import classes from "./Card.module.scss";
 import { ProductType } from "../../types/productType";
+import Button from "../Button/Button";
+import SliderImages from "../SliderImages/SliderImages";
 
-const Card: FC<ProductType> = ({ description, images, prices }) => {
+type PropsType = {
+  product: ProductType;
+  handlePopup: (index: number) => void;
+  index: number;
+};
+
+const Card: FC<PropsType> = ({ product, handlePopup, index }) => {
+  const { description, images, prices } = product;
+
   return (
     <>
       <div className={classes.card__item}>
-        <div className={classes.sliderContainer}>
-          <div className={`${classes.left} ${classes.arrow}`}>
-            <span>{"<"}</span>
-          </div>
-
-          <div
-            style={{
-              // transform: `translateX(${250}px)`,
-              transition: "0.3s",
-            }}
-            className={classes.slider}
-          >
-            <img
-              src={`https://test2.sionic.ru${images[0].image_url}`}
-              alt=""
-              className={classes.card__img}
-            />
-          </div>
-          <div className={`${classes.right} ${classes.arrow}`}>
-            <span>{">"}</span>
-          </div>
-        </div>
+        <SliderImages images={images} />
         <span className={classes.card__title}>{description}</span>
         <div className={classes.card__priceBlock}>
           <div className={classes.card__priceItem}>
@@ -36,8 +25,11 @@ const Card: FC<ProductType> = ({ description, images, prices }) => {
             </span>
           </div>
         </div>
-
-        <button className={classes.card__btn}>Выбрать параметры</button>
+        <Button
+          text="Выбрать параметры"
+          index={index}
+          handleClick={handlePopup}
+        />
       </div>
     </>
   );

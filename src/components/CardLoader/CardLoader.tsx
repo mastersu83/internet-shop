@@ -12,10 +12,7 @@ const CardLoader = () => (
   >
     <rect x="5" y="224" rx="0" ry="0" width="214" height="40" />
     <rect x="5" y="0" rx="0" ry="0" width="214" height="214" />
-    <rect x="5" y="274" rx="10" ry="10" width="40" height="28" />
-    <rect x="65" y="274" rx="10" ry="10" width="40" height="28" />
-    <rect x="125" y="274" rx="10" ry="10" width="40" height="28" />
-    <rect x="180" y="274" rx="10" ry="10" width="40" height="28" />
+    <rect x="5" y="274" rx="10" ry="10" width="80" height="28" />
     <rect x="10" y="310" rx="20" ry="20" width="205" height="38" />
   </ContentLoader>
 );

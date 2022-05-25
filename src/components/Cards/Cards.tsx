@@ -5,6 +5,7 @@ import {
   getAllProducts,
   getAllProductsImages,
   getAllProductsVariations,
+  useGetAllProductsVariationsPropertiesQuery,
 } from "../../api/productsApi";
 import { ProductType } from "../../types/productType";
 import Card from "../Card/Card";
@@ -16,6 +17,9 @@ const Cards = () => {
   const dispatch = useAppDispatch();
   const [openVarPopup, setOpenVarPopup] = useState<boolean>(false);
   const [productInPopup, setProductInPopup] = useState<number>(0);
+  const { data: productVariationProperties } =
+    useGetAllProductsVariationsPropertiesQuery({});
+
   const {
     products,
     allProductsIsSuccess,
@@ -29,8 +33,6 @@ const Cards = () => {
     setOpenVarPopup(!openVarPopup);
     setProductInPopup(index);
   };
-
-  console.log(products);
 
   useEffect(() => {
     !products.length && dispatch(getAllProducts(categoryId));
@@ -68,6 +70,7 @@ const Cards = () => {
             handlePopup={handlePopup}
             openVarPopup={openVarPopup}
             index={productInPopup}
+            productVariationProperties={productVariationProperties}
           />
         </Popup>
       )}

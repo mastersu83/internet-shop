@@ -3,6 +3,25 @@ import { ProductVariationsType } from "../types/productVariationsType";
 import { ProductType } from "../types/productType";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+
+export const productsApi = createApi({
+  reducerPath: "productsApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://test2.sionic.ru/api/",
+  }),
+  tagTypes: ["Products"],
+  endpoints: (build) => ({
+    getAllProductsVariationsProperties: build.query({
+      query: () => ({
+        url: `ProductVariationProperties`,
+      }),
+      providesTags: ["Products"],
+    }),
+  }),
+});
+
+export const { useGetAllProductsVariationsPropertiesQuery } = productsApi;
 
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",

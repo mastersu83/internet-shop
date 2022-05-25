@@ -22,6 +22,15 @@
   cursor: pointer;
 }
 
+.varProperties {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  &__title {
+    font-weight: bold;
+  }
+}
+
 .active {
   background-color: #2967ff;
   color: #ffffff;

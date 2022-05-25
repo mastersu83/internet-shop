@@ -1,12 +1,13 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import classes from "./SliderImages.module.scss";
 import { ProductImageType } from "../../types/productImageType";
 
 type PropsType = {
   images: ProductImageType[];
+  openVarPopup?: boolean;
 };
 
-const SliderImages: FC<PropsType> = ({ images }) => {
+const SliderImages: FC<PropsType> = ({ images, openVarPopup }) => {
   const [offset, setOffset] = useState(0);
 
   const moveLeft = () => {
@@ -19,6 +20,12 @@ const SliderImages: FC<PropsType> = ({ images }) => {
       return Math.max(currentOffset - 217, -217 * (images.length - 1));
     });
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOffset(0);
+    }, 300);
+  }, [openVarPopup]);
 
   return (
     <div className={classes.sliderContainer}>

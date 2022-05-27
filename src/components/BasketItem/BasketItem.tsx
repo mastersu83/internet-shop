@@ -1,25 +1,61 @@
-import React from "react";
+import React, { FC } from "react";
 import remove from "../../assets/img/delete.svg";
 import classes from "./BasketItem.module.scss";
+import { ProductInBasketType } from "../../types/productInBasketType";
+import { useAppDispatch } from "../../hooks/appHooks";
+import {
+  countMinus,
+  countPlus,
+  removeProd,
+} from "../../redux/reducers/basketSlice";
 
-const BasketItem = () => {
+type PropsType = {
+  prod: ProductInBasketType;
+};
+
+const BasketItem: FC<PropsType> = ({ prod }) => {
+  const dispatch = useAppDispatch();
+  const { description, prices, images, id, countProdInBasket } = prod;
+
+  const counterPlus = () => {
+    dispatch(countPlus(id));
+  };
+  const counterMinus = () => {
+    if (countProdInBasket > 1) {
+      dispatch(countMinus(id));
+    }
+  };
+
+  const onRemoveProd = () => {
+    dispatch(removeProd(id));
+  };
+
+  console.log(countProdInBasket);
+
   return (
     <div className={classes.basket__item}>
       <img
-        src="https://lider-krovlia.ru/local/templates/aspro-stroy/images/noimage_detail.png"
+        src={"https://test2.sionic.ru" + images.image_url}
         alt=""
         className={classes.basket__itemImg}
       />
-      <span className={classes.basket__itemTitle}>
-        Длинное название товара в одну строчку п...
-      </span>
+      <span className={classes.basket__itemTitle}>{description}</span>
       <div className={classes.basket__countBox}>
-        <span className={classes.basket__countButtons}>-</span>
-        <span className={classes.basket__count}>4</span>
-        <span className={classes.basket__countButtons}>+</span>
+        <span onClick={counterMinus} className={classes.basket__countButtons}>
+          -
+        </span>
+        <span className={classes.basket__count}>{countProdInBasket}</span>
+        <span onClick={counterPlus} className={classes.basket__countButtons}>
+          +
+        </span>
       </div>
-      <span className={classes.basket__itemPrice}>350 000 ₽</span>
-      <img src={remove} alt="Delete" className={classes.basket__itemDelete} />
+      <span className={classes.basket__itemPrice}>{prices.price} ₽</span>
+      <img
+        onClick={onRemoveProd}
+        src={remove}
+        alt="Delete"
+        className={classes.basket__itemDelete}
+      />
     </div>
   );
 };

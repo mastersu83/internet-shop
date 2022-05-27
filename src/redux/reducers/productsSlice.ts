@@ -6,11 +6,17 @@ import {
   getAllProducts,
   getAllProductsImages,
   getAllProductsVariations,
+  getProductVariationPropertiesListValues,
+  getProductVariationPropertiesValues,
 } from "../../api/productsApi";
+import { ProductVariationPropertyValuesType } from "../../types/productVariationPropertyValuesType";
+import { ProductVariationPropertyListValuesType } from "../../types/productVariationPropertyListValuesType";
 
 type InitialStateType = {
   products: ProductType[];
   allProductsId: number[];
+  productVariationPropertyValues: ProductVariationPropertyValuesType[];
+  productVariationPropertiesListValues: ProductVariationPropertyListValuesType[];
   allProductsIsSuccess: boolean;
   imagesIsSuccess: boolean;
   propertiesIsSuccess: boolean;
@@ -20,6 +26,8 @@ type InitialStateType = {
 const initialState: InitialStateType = {
   products: [],
   allProductsId: [],
+  productVariationPropertyValues: [],
+  productVariationPropertiesListValues: [],
   allProductsIsSuccess: false,
   imagesIsSuccess: false,
   propertiesIsSuccess: false,
@@ -74,6 +82,18 @@ const productsSlice = createSlice({
         prices: action.payload.filter((img) => img.product_id === prod.id),
       }));
       state.propertiesIsSuccess = true;
+    },
+    [getProductVariationPropertiesValues.fulfilled.type]: (
+      state: InitialStateType,
+      action: PayloadAction<ProductVariationPropertyValuesType[]>
+    ) => {
+      state.productVariationPropertyValues = action.payload;
+    },
+    [getProductVariationPropertiesListValues.fulfilled.type]: (
+      state: InitialStateType,
+      action: PayloadAction<ProductVariationPropertyListValuesType[]>
+    ) => {
+      state.productVariationPropertiesListValues = action.payload;
     },
   },
 });

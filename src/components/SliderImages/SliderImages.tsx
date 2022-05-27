@@ -5,20 +5,23 @@ import { ProductImageType } from "../../types/productImageType";
 type PropsType = {
   images: ProductImageType[];
   openVarPopup?: boolean;
+  getImgIndex?: (flag: boolean) => void;
 };
 
-const SliderImages: FC<PropsType> = ({ images, openVarPopup }) => {
+const SliderImages: FC<PropsType> = ({ images, openVarPopup, getImgIndex }) => {
   const [offset, setOffset] = useState(0);
 
   const moveLeft = () => {
     setOffset((currentOffset) => {
       return Math.min(currentOffset + 217, 0);
     });
+    getImgIndex && getImgIndex(false);
   };
   const moveRight = () => {
     setOffset((currentOffset) => {
       return Math.max(currentOffset - 217, -217 * (images.length - 1));
     });
+    getImgIndex && getImgIndex(true);
   };
 
   useEffect(() => {

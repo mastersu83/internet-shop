@@ -5,6 +5,8 @@ import {
   getAllProducts,
   getAllProductsImages,
   getAllProductsVariations,
+  getProductVariationPropertiesListValues,
+  getProductVariationPropertiesValues,
   useGetAllProductsVariationsPropertiesQuery,
 } from "../../api/productsApi";
 import { ProductType } from "../../types/productType";
@@ -12,11 +14,14 @@ import Card from "../Card/Card";
 import CardLoader from "../CardLoader/CardLoader";
 import Popup from "../Popup/Popup";
 import ProductVarPopupCard from "../ProductVarPopupCard/ProductVarPopupCard";
+import { ProductInBasketType } from "../../types/productInBasketType";
+import { setProductInBasket } from "../../redux/reducers/basketSlice";
 
 const Cards = () => {
   const dispatch = useAppDispatch();
   const [openVarPopup, setOpenVarPopup] = useState<boolean>(false);
   const [productInPopup, setProductInPopup] = useState<number>(0);
+  const [currentImg, setCurrentImg] = useState<number>(0);
   const { data: productVariationProperties } =
     useGetAllProductsVariationsPropertiesQuery({});
 
@@ -29,9 +34,21 @@ const Cards = () => {
     imagesIsSuccess,
   } = useAppSelector((state) => state.products);
 
+  const getImgIndex = (flag: boolean) => {
+    flag
+      ? setCurrentImg((prevState) => Math.min(prevState + 1, 2))
+      : setCurrentImg((prevState) => Math.max(prevState - 1, 0));
+  };
+
   const handlePopup = (index: number) => {
     setOpenVarPopup(!openVarPopup);
     setProductInPopup(index);
+    dispatch(getProductVariationPropertiesValues(products[index].prices[0].id));
+    dispatch(getProductVariationPropertiesListValues());
+  };
+
+  const addProductInBasket = (obj: ProductInBasketType) => {
+    dispatch(setProductInBasket(obj));
   };
 
   useEffect(() => {
@@ -66,7 +83,10 @@ const Cards = () => {
           index={productInPopup}
         >
           <ProductVarPopupCard
+            getImgIndex={getImgIndex}
             product={products[productInPopup]}
+            addProductInBasket={addProductInBasket}
+            currentImg={currentImg}
             handlePopup={handlePopup}
             openVarPopup={openVarPopup}
             index={productInPopup}

@@ -25,17 +25,22 @@ p {
   }
   &__dateBlock {
     display: flex;
-    column-gap: 10px;
+    flex-direction: column;
+    row-gap: 10px;
     margin-bottom: 10px;
   }
   &__date {
     font-weight: 600;
     font-size: 14px;
     line-height: 140%;
+    span {
+      font-weight: 400;
+    }
   }
   &__more {
     cursor: pointer;
     color: #2967ff;
+    margin-bottom: 10px;
   }
   &__titleText {
     font-weight: 500;

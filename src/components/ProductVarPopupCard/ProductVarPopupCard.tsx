@@ -10,6 +10,7 @@ import { getProductVariationPropertiesValues } from "../../api/productsApi";
 import { getPropertyValues } from "../../helpers/helpers";
 import { ProductInBasketType } from "../../types/productInBasketType";
 import { ProductVariationsType } from "../../types/productVariationsType";
+import ProductVarLoader from "../ProductVarLoader/ProductVarLoader";
 
 type PropsType = {
   product: ProductType;
@@ -95,26 +96,39 @@ const ProductVarPopupCard: FC<PropsType> = ({
         ))}
       </div>
       <div className={classesPopup.varProperties}>
-        <div className={classesPopup.varProperties__key}>
-          {productVariationProperties.map((item) => (
-            <span className={classesPopup.varProperties__title} key={item.id}>
-              {item.name} :
-            </span>
-          ))}
-        </div>
-        <div className={classesPopup.varProperties__value}>
-          {productVariationProperties.length &&
-            productVariationPropertiesListValues.length &&
-            productVariationPropertyValues.map((item) => (
-              <span className={classesPopup.varProperties__title} key={item.id}>
-                {getPropertyValues(
-                  productVariationProperties,
-                  item,
-                  productVariationPropertiesListValues
-                )}
-              </span>
-            ))}
-        </div>
+        {productVariationProperties.length &&
+        productVariationPropertiesListValues.length ? (
+          <>
+            <div className={classesPopup.varProperties__key}>
+              {productVariationProperties.map((item) => (
+                <span
+                  className={classesPopup.varProperties__title}
+                  key={item.id}
+                >
+                  {item.name} :
+                </span>
+              ))}
+            </div>
+            <div className={classesPopup.varProperties__value}>
+              {productVariationProperties.length &&
+                productVariationPropertiesListValues.length &&
+                productVariationPropertyValues.map((item) => (
+                  <span
+                    className={classesPopup.varProperties__title}
+                    key={item.id}
+                  >
+                    {getPropertyValues(
+                      productVariationProperties,
+                      item,
+                      productVariationPropertiesListValues
+                    )}
+                  </span>
+                ))}
+            </div>
+          </>
+        ) : (
+          <ProductVarLoader />
+        )}
       </div>
 
       <Button

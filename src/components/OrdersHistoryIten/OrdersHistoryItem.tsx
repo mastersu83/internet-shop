@@ -1,18 +1,43 @@
-import React from "react";
-import classes from "./OrdersHistoryItem.module.scss";
+import React, { FC, useState } from "react";
+import classes from "../OrdersHistory/OrdersHistory.module.scss";
+import { ProductsInOrder } from "../../types/productInOrderType";
+import Popup from "../Popup/Popup";
+import OrderPopupItem from "../OrderPopupItem/OrderPopupItem";
 
-const OrdersHistoryItem = () => {
+type PropsType = {
+  orderProd: ProductsInOrder;
+  index: number;
+};
+
+const OrdersHistoryItem: FC<PropsType> = ({ orderProd, index }) => {
+  const { orderDate, orderNumber, sumOrder, countProdInOrder } = orderProd;
+
+  const [openOrderPopup, setOpenOrderPopup] = useState<boolean>(false);
+  const [orderInPopup, setOrderInPopup] = useState<number>(0);
+
+  const handlePopup = (index: number) => {
+    setOpenOrderPopup(!openOrderPopup);
+    setOrderInPopup(index);
+  };
+
   return (
     <>
       <div className={classes.historyOrder__item}>
+        <div
+          onClick={() => handlePopup(index)}
+          className={`${classes.historyOrder__more} ${classes.historyOrder__titleText}`}
+        >
+          Подробнее
+        </div>
         <div className={classes.historyOrder__dateBlock}>
-          <div className={classes.historyOrder__date}>15.02.2022</div>
-          <div
-            className={`${classes.historyOrder__more} ${classes.historyOrder__titleText}`}
-          >
-            Подробнее
+          <div className={classes.historyOrder__date}>
+            <span>Время доставки заказа:</span> {orderDate}
+          </div>
+          <div className={classes.historyOrder__date}>
+            <span>Дата заказа:</span> {orderDate}
           </div>
         </div>
+
         <div className={classes.historyOrder__statusBlock}>
           <div className={classes.historyOrder__titleText}>
             <p>Статус заказа</p>
@@ -21,7 +46,7 @@ const OrdersHistoryItem = () => {
           <div
             className={`${classes.historyOrder__number} ${classes.historyOrder__titleText}`}
           >
-            <p>Номер заказа</p> <span>#152-645</span>
+            <p>Номер заказа</p> <span>#{orderNumber}</span>
           </div>
         </div>
         <div className={classes.historyOrder__detailsBlock}>
@@ -29,12 +54,12 @@ const OrdersHistoryItem = () => {
             className={`${classes.historyOrder__countProd} ${classes.historyOrder__titleText}`}
           >
             <p>Колво товаров</p>
-            <span>12 шт.</span>
+            <span>{countProdInOrder} шт.</span>
           </div>
           <div
             className={`${classes.historyOrder__sum} ${classes.historyOrder__titleText}`}
           >
-            <p>Стоимость заказа</p> <span>18500₽</span>
+            <p>Стоимость заказа</p> <span>{sumOrder}₽</span>
           </div>
           <div
             className={`${classes.historyOrder__delivery} ${classes.historyOrder__titleText}`}
@@ -42,6 +67,13 @@ const OrdersHistoryItem = () => {
             <p>Адрес доставки ул.</p> <span> Коммунистич...д.1, стр.1</span>
           </div>
         </div>
+        <Popup
+          openVarPopup={openOrderPopup}
+          handlePopup={handlePopup}
+          index={orderInPopup}
+        >
+          <OrderPopupItem orderProd={orderProd} />
+        </Popup>
       </div>
     </>
   );

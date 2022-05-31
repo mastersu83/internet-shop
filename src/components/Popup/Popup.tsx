@@ -29,6 +29,10 @@ const Popup: FC<PropsType> = ({
           +
         </div>
       </div>
+      <div
+        onClick={() => handlePopup(index)}
+        className={orderClasses.overlay}
+      />
     </div>
   );
 };

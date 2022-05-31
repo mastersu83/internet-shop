@@ -30,8 +30,6 @@ const BasketItem: FC<PropsType> = ({ prod }) => {
     dispatch(removeProd(id));
   };
 
-  console.log(countProdInBasket);
-
   return (
     <div className={classes.basket__item}>
       <img

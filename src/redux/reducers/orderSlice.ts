@@ -49,4 +49,4 @@ const ordersSlice = createSlice({
 
 export const { setOrder } = ordersSlice.actions;
 
-export default ordersSlice.reducer;
+export default ordersSlice;

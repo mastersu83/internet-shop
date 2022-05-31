@@ -36,7 +36,14 @@ const Basket = () => {
             <span className={classes.checkout__sum}>{totalSum} ₽</span>
           </div>
           <Link to="/order">
-            <button className={classes.checkout__btn}>Оформить</button>
+            <button
+              // disabled={!productsInBasket.length}
+              className={`${classes.checkout__btn} ${
+                !productsInBasket.length ? classes.checkout__disable : ""
+              }`}
+            >
+              Оформить
+            </button>
           </Link>
           <img src={group} alt="" className={classes.checkout__img} />
         </div>

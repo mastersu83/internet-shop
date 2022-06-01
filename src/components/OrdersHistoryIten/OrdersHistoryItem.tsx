@@ -10,7 +10,15 @@ type PropsType = {
 };
 
 const OrdersHistoryItem: FC<PropsType> = ({ orderProd, index }) => {
-  const { orderDate, orderNumber, sumOrder, countProdInOrder } = orderProd;
+  const {
+    orderDate,
+    orderNumber,
+    sumOrder,
+    countProdInOrder,
+    date,
+    address,
+    time,
+  } = orderProd;
 
   const [openOrderPopup, setOpenOrderPopup] = useState<boolean>(false);
   const [orderInPopup, setOrderInPopup] = useState<number>(0);
@@ -31,7 +39,8 @@ const OrdersHistoryItem: FC<PropsType> = ({ orderProd, index }) => {
         </div>
         <div className={classes.historyOrder__dateBlock}>
           <div className={classes.historyOrder__date}>
-            <span>Время доставки заказа:</span> {orderDate}
+            <span>Время доставки заказа:</span> {date} г.,
+            {time}
           </div>
           <div className={classes.historyOrder__date}>
             <span>Дата заказа:</span> {orderDate}
@@ -64,7 +73,7 @@ const OrdersHistoryItem: FC<PropsType> = ({ orderProd, index }) => {
           <div
             className={`${classes.historyOrder__delivery} ${classes.historyOrder__titleText}`}
           >
-            <p>Адрес доставки ул.</p> <span> Коммунистич...д.1, стр.1</span>
+            <p>Адрес доставки ул.</p> <span> {address}</span>
           </div>
         </div>
         <Popup

@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductInBasketType } from "../../types/productInBasketType";
-import { ProductsInOrder } from "../../types/productInOrderType";
+import {
+  InputValueType,
+  ProductsInOrder,
+} from "../../types/productInOrderType";
 
 type initialStateType = {
   orders: ProductsInOrder[];
@@ -20,15 +23,18 @@ const ordersSlice = createSlice({
         productsInBasket: ProductInBasketType[];
         totalSum: number;
         totalCount: number;
+        inputValue: InputValueType;
       }>
     ) {
       let date = new Date().toLocaleString("ru", {
         day: "numeric",
-        month: "long",
+        month: "numeric",
         year: "numeric",
         hour: "2-digit",
         minute: "2-digit",
       });
+      // console.log(action.payload.inputValue.date.split("-"));
+
       state.orders.push({
         countProdInOrder: action.payload.totalCount,
         sumOrder: action.payload.totalSum,
@@ -42,6 +48,18 @@ const ordersSlice = createSlice({
             Math.floor(Math.random() * (1000 - 100)) +
             100
         ),
+        date: action.payload.inputValue.date.split("-").reverse().join("."),
+        time: action.payload.inputValue.time,
+        address: action.payload.inputValue.address,
+        name: action.payload.inputValue.name,
+        phone: action.payload.inputValue.phone,
+        // inputValue: {
+        //   date: action.payload.inputValue.date.split("-").reverse().join("-"),
+        //   time: action.payload.inputValue.time,
+        //   address: action.payload.inputValue.address,
+        //   name: action.payload.inputValue.name,
+        //   phone: action.payload.inputValue.phone,
+        // },
       });
     },
   },

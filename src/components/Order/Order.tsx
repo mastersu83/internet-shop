@@ -1,8 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import classes from "./Order.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/appHooks";
 import { setOrder } from "../../redux/reducers/orderSlice";
 import { clearBasket } from "../../redux/reducers/basketSlice";
+import { useForm } from "react-hook-form";
+import { InputValueType } from "../../types/productInOrderType";
 
 const Order = () => {
   const dispatch = useAppDispatch();
@@ -10,23 +12,28 @@ const Order = () => {
     (state) => state.basket
   );
 
-  const [inputValue, setInputValue] = useState({
-    date: "",
-    time: "",
-    address: "",
-    name: "",
-    phone: "",
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm<InputValueType>({
+    defaultValues: {
+      date: "",
+      time: "",
+      address: "",
+      name: "",
+      phone: "",
+    },
   });
 
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputValue({ ...inputValue, [name]: value });
-  };
-
-  const order = () => {
+  const order = (inputValue: InputValueType) => {
     productsInBasket.length &&
-      dispatch(setOrder({ productsInBasket, totalCount, totalSum }));
+      dispatch(
+        setOrder({ productsInBasket, totalCount, totalSum, inputValue })
+      );
     dispatch(clearBasket());
+    reset({ date: "", time: "", address: "", name: "", phone: "" });
   };
 
   return (
@@ -37,54 +44,60 @@ const Order = () => {
           <form className={classes.order__form}>
             <span className={classes.form__label}>Когда доставить?</span>
             <div className={classes.form__dateBox}>
-              <input
-                onChange={onChangeInput}
-                name="date"
-                type="date"
-                className={`${classes.form__date} ${classes.input}`}
-                placeholder="Выберите дату"
-                value={inputValue.date}
-              />
-              <input
-                onChange={onChangeInput}
-                name="time"
-                type="time"
-                className={`${classes.form__date} ${classes.input}`}
-                placeholder="Выберите время"
-                value={inputValue.time}
-              />
+              <div className={classes.form__date}>
+                <input
+                  className={`${classes.form__date} ${classes.input}`}
+                  {...register("date", {
+                    required: "Введите дату",
+                  })}
+                  type="date"
+                />
+                <span>{errors.date?.message}</span>
+              </div>
+
+              <div className={classes.form__date}>
+                <input
+                  className={`${classes.form__date} ${classes.input}`}
+                  {...register("time", {
+                    required: "Введите время",
+                  })}
+                  type="time"
+                />
+                <span>{errors.time?.message}</span>
+              </div>
             </div>
 
             <span className={classes.form__label}>Куда доставить?</span>
+            <div className={classes.form__date}>
+              <input
+                className={`${classes.form__date} ${classes.input}`}
+                {...register("address", {
+                  required: "Введите адрес",
+                })}
+              />
+              <span>{errors.address?.message}</span>
+            </div>
 
-            <input
-              onChange={onChangeInput}
-              name="address"
-              type="text"
-              className={`${classes.form__address} ${classes.input}`}
-              placeholder="Введите адрес доставки"
-              value={inputValue.address}
-            />
             <span className={classes.form__label}>Имя</span>
-
-            <input
-              onChange={onChangeInput}
-              name="name"
-              type="text"
-              className={`${classes.form__name} ${classes.input}`}
-              placeholder="Введите имя"
-              value={inputValue.name}
-            />
+            <div className={classes.form__date}>
+              <input
+                className={`${classes.form__date} ${classes.input}`}
+                {...register("name", {
+                  required: "Введите имя",
+                })}
+              />
+              <span>{errors.name?.message}</span>
+            </div>
             <span className={classes.form__label}>Телефон</span>
-
-            <input
-              onChange={onChangeInput}
-              name="phone"
-              type="text"
-              className={`${classes.form__phone} ${classes.input}`}
-              placeholder="Введите номер телефона"
-              value={inputValue.phone}
-            />
+            <div className={classes.form__date}>
+              <input
+                className={`${classes.form__date} ${classes.input}`}
+                {...register("phone", {
+                  required: "Введите номер телефона",
+                })}
+              />
+              <span>{errors.phone?.message}</span>
+            </div>
           </form>
         </div>
         <div className={classes.order__sum}>
@@ -100,7 +113,7 @@ const Order = () => {
           </span>
         </div>
       </div>
-      <button onClick={order} className={classes.order__btn}>
+      <button onClick={handleSubmit(order)} className={classes.order__btn}>
         Сделать заказ
       </button>
     </div>
